@@ -9,7 +9,8 @@ class UserList extends React.Component {
 
     state = {
         users: null,
-        isLoadingUsers: false
+        isLoadingUsers: false,
+        newUserName: ''
     }
 
     loadUsers = () => {
@@ -28,6 +29,29 @@ class UserList extends React.Component {
             })
     }
 
+    newUserChangeHandler = (event) => {
+        this.setState({
+            newUserName: event.target.value
+        })
+    }
+
+    onAddNewUserClickHandler = () => {
+
+        const request = {
+            method: 'POST',
+            body: JSON.stringify({ name: this.state.newUserName })
+        }
+
+        fetch('https://sandbox-e5144.firebaseio.com/users.json', request)
+            .then(response =>
+                this.setState({
+                    newUserName: ''
+                })
+            )
+
+        // this.loadUsers()
+    }
+
 
     render() {
 
@@ -39,7 +63,11 @@ class UserList extends React.Component {
                         :
                         this.state.users ?
                             <div>
-                                <Forms />
+                                <Forms
+                                    newUserName={this.newUserName}
+                                    newUserChangeHandler={this.newUserChangeHandler}
+                                    onAddNewUserClickHandler={this.onAddNewUserClickHandler}
+                                />
                                 <List
                                     users={this.state.users}
                                 />
