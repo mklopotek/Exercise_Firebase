@@ -10,7 +10,7 @@ const Forms = (props) => (
             onChange={props.newUserChangeHandler}
         />
         <button
-            onClick={props.onAddNewUserClickHandler}
+            onClick={props.onAddNewUserClick}
         > 
             Add user 
         </button>

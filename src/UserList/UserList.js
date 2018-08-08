@@ -35,21 +35,25 @@ class UserList extends React.Component {
         })
     }
 
-    onAddNewUserClickHandler = () => {
+    onAddNewUserClick = () => {
 
         const request = {
             method: 'POST',
             body: JSON.stringify({ name: this.state.newUserName })
         }
 
+        this.setState({
+            isLoadingUsers: true
+        })
+
         fetch('https://sandbox-e5144.firebaseio.com/users.json', request)
-            .then(response =>
+            .then(response => {
+                this.loadUsers()
                 this.setState({
                     newUserName: ''
                 })
+            }
             )
-
-        // this.loadUsers()
     }
 
 
@@ -66,7 +70,7 @@ class UserList extends React.Component {
                                 <Forms
                                     newUserName={this.newUserName}
                                     newUserChangeHandler={this.newUserChangeHandler}
-                                    onAddNewUserClickHandler={this.onAddNewUserClickHandler}
+                                    onAddNewUserClick={this.onAddNewUserClick}
                                 />
                                 <List
                                     users={this.state.users}
