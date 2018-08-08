@@ -4,6 +4,7 @@ import Loading from './Loading';
 import List from './List'
 import mapObjectToArray from '../utils/mapObjectToArray'
 import Forms from './Forms'
+import database from '../firebase'
 
 class UserList extends React.Component {
 
@@ -14,19 +15,15 @@ class UserList extends React.Component {
     }
 
     loadUsers = () => {
-
         this.setState({ isLoadingUsers: true })
 
-        fetch('https://sandbox-e5144.firebaseio.com/users.json')
-            .then(response => response.json())
-            .then(data => {
-                const userArray = mapObjectToArray(data)
-
-                this.setState({
-                    users: userArray,
-                    isLoadingUsers: false
-                })
+        database.ref('/users')
+        .on('value', snapshot => {
+            this.setState({
+                users: mapObjectToArray(snapshot.val()),
+                isLoadingUsers: false
             })
+        })
     }
 
     newUserChangeHandler = (event) => {
@@ -48,7 +45,7 @@ class UserList extends React.Component {
 
         fetch('https://sandbox-e5144.firebaseio.com/users.json', request)
             .then(response => {
-                this.loadUsers()
+                // this.loadUsers()
                 this.setState({
                     newUserName: ''
                 })
@@ -57,15 +54,12 @@ class UserList extends React.Component {
     }
 
     onEditUserHandler = (key, newName) => {
-        console.log(key, newName)
         const request = {
             method: "PATCH",
             body: JSON.stringify({name: newName})
         }
 
-        fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
-        .then(response => this.loadUsers())
-
+        return fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
     }
 
     onDeleteUserHandler = (key) => {
@@ -74,7 +68,7 @@ class UserList extends React.Component {
         }
 
         fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
-        .then(response => this.loadUsers())
+        // .then(response => this.loadUsers())
     }
 
 

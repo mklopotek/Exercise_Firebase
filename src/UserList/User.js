@@ -34,10 +34,14 @@ class User extends React.Component {
                         onChange={this.onUserNameChangedHandler}
                         value={this.state.userName} />
                     <button
-                        onClick={() => this.props.onEditUserHandler(
-                            this.props.user.key,
-                            this.state.userName
-                        )}
+                        onClick={() => {
+                            this.props.onEditUserHandler(
+                                this.props.user.key,
+                                this.state.userName
+                            )
+                            .then(()=>
+                            this.setState({isEdited: !this.state.isEdited}))
+                        }}
                     >
                         Save!
                     </button>
