@@ -2,7 +2,7 @@ import React from 'react'
 import Default from './Dafault'
 import Loading from './Loading';
 import List from './List'
-import mapObjectToArray from '../utils'
+import mapObjectToArray from '../utils/mapObjectToArray'
 
 class UserList extends React.Component {
 
@@ -18,11 +18,8 @@ class UserList extends React.Component {
         fetch('https://sandbox-e5144.firebaseio.com/users.json')
             .then(response => response.json())
             .then(data => {
-                const userArray = Object.entries(data || {})
-                    .map(([id, value]) => ({
-                        ...value,
-                        id
-                    }))
+                const userArray = mapObjectToArray(data)
+
                 this.setState({
                     users: userArray,
                     isLoadingUsers: false
@@ -40,7 +37,9 @@ class UserList extends React.Component {
                         <Loading />
                         :
                         this.state.users ?
-                            <List />
+                            <List 
+                            users={this.state.users}
+                            />
                             :
                             <Default
                                 clickHandler={this.loadUsers}
