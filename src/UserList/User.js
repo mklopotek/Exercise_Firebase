@@ -33,12 +33,24 @@ class User extends React.Component {
                         type='text'
                         onChange={this.onUserNameChangedHandler}
                         value={this.state.userName} />
-                    
+                    <button
+                        onClick={() => this.props.onEditUserHandler(
+                            this.props.user.key,
+                            this.state.userName
+                        )}
+                    >
+                        Save!
+                    </button>
                 </div>
 
                 :
 
                 <div>
+                    <button
+                        onClick={() => this.props.onDeleteUserHandler(this.props.user.key)}
+                    >
+                        Delete
+                    </button>
                     <button
                         onClick={this.editToggle}
                     >
@@ -51,7 +63,8 @@ class User extends React.Component {
 }
 
 User.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    onEditUserHandler: PropTypes.func.isRequired
 }
 
 export default User

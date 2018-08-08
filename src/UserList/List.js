@@ -9,6 +9,8 @@ const List = (props) => (
                 <User
                     key={user.key}
                     user={user}
+                    onEditUserHandler={props.onEditUserHandler}
+                    onDeleteUserHandler={props.onDeleteUserHandler}
                 />
             )
         }
@@ -18,7 +20,8 @@ const List = (props) => (
 
 
 List.propTypes = {
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    onEditUserHandler: PropTypes.func.isRequired
 }
 
 export default List

@@ -56,6 +56,27 @@ class UserList extends React.Component {
             )
     }
 
+    onEditUserHandler = (key, newName) => {
+        console.log(key, newName)
+        const request = {
+            method: "PATCH",
+            body: JSON.stringify({name: newName})
+        }
+
+        fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
+        .then(response => this.loadUsers())
+
+    }
+
+    onDeleteUserHandler = (key) => {
+        const request = {
+            method: "DELETE",
+        }
+
+        fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
+        .then(response => this.loadUsers())
+    }
+
 
     render() {
 
@@ -68,12 +89,14 @@ class UserList extends React.Component {
                         this.state.users ?
                             <div>
                                 <Forms
-                                    newUserName={this.newUserName}
+                                    newUserName={this.state.newUserName}
                                     newUserChangeHandler={this.newUserChangeHandler}
                                     onAddNewUserClick={this.onAddNewUserClick}
                                 />
                                 <List
                                     users={this.state.users}
+                                    onEditUserHandler={this.onEditUserHandler}
+                                    onDeleteUserHandler={this.onDeleteUserHandler}
                                 />
                             </div>
                             :

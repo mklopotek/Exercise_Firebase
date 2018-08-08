@@ -20,7 +20,7 @@ const Forms = (props) => (
 Forms.propTypes = {
     newUserName: PropTypes.string.isRequired,
     newUserChangeHandler: PropTypes.func.isRequired,
-    onAddNewUserClickHandler: PropTypes.func.isRequired
+    onAddNewUserClick: PropTypes.func.isRequired
 }
 
 export default Forms
