@@ -6,9 +6,9 @@ const Default = (props) => (
 
     <div>
         <button
-            onClick={props.clikHandler}
+            onClick={props.clickHandler}
         >
-            {props.label}        
+            {props.label}
         </button>
 
 
@@ -20,6 +20,6 @@ const Default = (props) => (
 Default.propTypes = {
     clickHandler: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
-    }
+}
 
 export default Default
