@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import User from './User'
 
 const List = (props) => (
     <div>
         {
             props.users.map(user =>
-                <div
+                <User
                     key={user.key}
-                >
-                    {user.name}
-                </div>
+                    user={user}
+                />
             )
         }
 
@@ -17,7 +17,7 @@ const List = (props) => (
 )
 
 
-List.protoTypes = {
+List.propTypes = {
     users: PropTypes.array.isRequired
 }
 
