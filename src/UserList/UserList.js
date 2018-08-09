@@ -53,7 +53,7 @@ class UserList extends React.Component {
 
     onEditUserHandler = (key, newName) => {
 
-        return database.ref(`/users/${key}`).update({name: newName})
+        database.ref(`/users/${key}`).update({name: newName})
 
         // MAGDA THIS IS THE SAME -> REMEMBER ABOUT THAT :)
         // const request = {

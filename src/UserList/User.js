@@ -5,7 +5,6 @@ class User extends React.Component {
     state = {
         isEdited: false,
         userName: this.props.user.name,
-        isVisable: false,
     }
 
     editToggle = () => {
@@ -31,19 +30,16 @@ class User extends React.Component {
                         Cancel
                     </button>
                     <input
-                        disabled={this.state.isVisable}
                         type='text'
                         onChange={this.onUserNameChangedHandler}
                         value={this.state.userName} />
                     <button
                         onClick={() => {
-                            this.setState({isVisable: !this.state.isVisable})
                             this.props.onEditUserHandler(
                                 this.props.user.key,
                                 this.state.userName
                             )
-                            .then(()=>
-                            this.setState({isEdited: !this.state.isEdited}))
+                            this.editToggle()
                         }}
                     >
                         Save!
