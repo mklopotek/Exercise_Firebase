@@ -4,7 +4,7 @@ import Loading from './Loading';
 import List from './List'
 import mapObjectToArray from '../utils/mapObjectToArray'
 import Forms from './Forms'
-import database from '../firebaseConfig'
+import { database } from '../firebaseConfig'
 import Search from './Search'
 
 class UserList extends React.Component {
