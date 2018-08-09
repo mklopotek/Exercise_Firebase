@@ -4,7 +4,7 @@ import Loading from './Loading';
 import List from './List'
 import mapObjectToArray from '../utils/mapObjectToArray'
 import Forms from './Forms'
-import database from '../firebase'
+import database from '../firebaseConfig'
 
 class UserList extends React.Component {
 
@@ -14,7 +14,7 @@ class UserList extends React.Component {
         newUserName: ''
     }
 
-    loadUsers = () => {
+    initUsersSync = () => {
         this.setState({ isLoadingUsers: true })
 
         database.ref('/users')
@@ -45,12 +45,10 @@ class UserList extends React.Component {
 
         fetch('https://sandbox-e5144.firebaseio.com/users.json', request)
             .then(response => {
-                // this.loadUsers()
                 this.setState({
                     newUserName: ''
                 })
-            }
-            )
+            })
     }
 
     onEditUserHandler = (key, newName) => {
@@ -68,7 +66,6 @@ class UserList extends React.Component {
         }
 
         fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
-        // .then(response => this.loadUsers())
     }
 
 
@@ -95,7 +92,7 @@ class UserList extends React.Component {
                             </div>
                             :
                             <Default
-                                clickHandler={this.loadUsers}
+                                clickHandler={this.initUsersSync}
                                 label={'Click me!'}
                             />
                 }
