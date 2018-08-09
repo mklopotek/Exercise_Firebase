@@ -52,20 +52,27 @@ class UserList extends React.Component {
     }
 
     onEditUserHandler = (key, newName) => {
-        const request = {
-            method: "PATCH",
-            body: JSON.stringify({name: newName})
-        }
 
-        return fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
+        return database.ref(`/users/${key}`).update({name: newName})
+
+        // MAGDA THIS IS THE SAME -> REMEMBER ABOUT THAT :)
+        // const request = {
+        //     method: "PATCH",
+        //     body: JSON.stringify({name: newName})
+        // }
+
+        // return fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
     }
 
     onDeleteUserHandler = (key) => {
-        const request = {
-            method: "DELETE",
-        }
 
-        fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
+        return database.ref(`/users/${key}`).remove()
+
+        // const request = {
+        //     method: "DELETE",
+        // }
+
+        // fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
     }
 
 
