@@ -84,12 +84,8 @@ class UserList extends React.Component {
 
     render() {
 
-        let filterArray =
-            this.state.users ?
-                this.state.users.filter(e =>
+        let filterArray = this.state.users && this.state.users.filter(e =>
                     e.name.indexOf(this.state.searchPhrase) >= 0)
-                :
-                null
 
         return (
             <div>
