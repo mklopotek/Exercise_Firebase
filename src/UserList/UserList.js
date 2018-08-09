@@ -5,25 +5,27 @@ import List from './List'
 import mapObjectToArray from '../utils/mapObjectToArray'
 import Forms from './Forms'
 import database from '../firebaseConfig'
+import Search from './Search'
 
 class UserList extends React.Component {
 
     state = {
         users: null,
         isLoadingUsers: false,
-        newUserName: ''
+        newUserName: '',
+        searchPhrase: ''
     }
 
     initUsersSync = () => {
         this.setState({ isLoadingUsers: true })
 
         database.ref('/users')
-        .on('value', snapshot => {
-            this.setState({
-                users: mapObjectToArray(snapshot.val()),
-                isLoadingUsers: false
+            .on('value', snapshot => {
+                this.setState({
+                    users: mapObjectToArray(snapshot.val()),
+                    isLoadingUsers: false
+                })
             })
-        })
     }
 
     newUserChangeHandler = (event) => {
@@ -53,7 +55,7 @@ class UserList extends React.Component {
 
     onEditUserHandler = (key, newName) => {
 
-        database.ref(`/users/${key}`).update({name: newName})
+        database.ref(`/users/${key}`).update({ name: newName })
 
         // MAGDA THIS IS THE SAME -> REMEMBER ABOUT THAT :)
         // const request = {
@@ -75,8 +77,19 @@ class UserList extends React.Component {
         // fetch(`https://sandbox-e5144.firebaseio.com/users/${key}.json`, request)
     }
 
+    onSearchPhraseChanged = event => {
+        this.setState({ searchPhrase: event.target.value })
+    }
+
 
     render() {
+
+        let filterArray =
+            this.state.users ?
+                this.state.users.filter(e =>
+                    e.name.indexOf(this.state.searchPhrase) >= 0)
+                :
+                null
 
         return (
             <div>
@@ -91,8 +104,14 @@ class UserList extends React.Component {
                                     newUserChangeHandler={this.newUserChangeHandler}
                                     onAddNewUserClick={this.onAddNewUserClick}
                                 />
+
+                                <Search
+                                    searchPhrase={this.state.searchPhrase}
+                                    onSearchPhraseChanged={this.onSearchPhraseChanged}
+                                />
+
                                 <List
-                                    users={this.state.users}
+                                    users={filterArray}
                                     onEditUserHandler={this.onEditUserHandler}
                                     onDeleteUserHandler={this.onDeleteUserHandler}
                                 />
