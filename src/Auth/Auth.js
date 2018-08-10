@@ -30,7 +30,7 @@ class Auth extends React.Component {
     }
 
     onSignUpByEmailClickHandler = () => {
-        this.setState({ isLoadingUserList: true })
+        this.setState({ ...initState, isLoadingUserList: true })
 
         auth.createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
             .catch(function (error) {
@@ -49,7 +49,7 @@ class Auth extends React.Component {
     }
 
     onLogInByEmailClickHandler = () => {
-        this.setState({ isLoadingUserList: true })
+        this.setState({ ...initState, isLoadingUserList: true })
 
         auth.signInWithEmailAndPassword(this.state.logInEmail, this.state.logInPassword)
             .catch(function (error) {
@@ -68,7 +68,7 @@ class Auth extends React.Component {
     }
 
     onResetPasswordClickHandler = () => {
-        this.setState({ isLoadingUserList: true })
+        this.setState({ ...initState, isLoadingUserList: true })
 
         auth.sendPasswordResetEmail(this.state.emailForResetPassword).then(() => {
             alert('Check your email to reset a password')
