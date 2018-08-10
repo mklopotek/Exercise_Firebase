@@ -2,6 +2,7 @@ import React from 'react'
 import LogInForms from './LogInForms';
 import { auth } from '../firebaseConfig'
 import { googleProvider } from '../firebaseConfig'
+import LoadingAuth from './LoadingAuth';
 
 
 
@@ -13,7 +14,8 @@ class Auth extends React.Component {
         logInPassword: '',
         signUpEmail: '',
         signUpPassword: '',
-        emailForResetPassword: ''
+        emailForResetPassword: '',
+        isLoadingUserList: false
     }
 
     onSignUpEmailChangedHandler = (event) => {
@@ -25,6 +27,8 @@ class Auth extends React.Component {
     }
 
     onSignUpByEmailClickHandler = () => {
+        this.setState({ isLoadingUserList: true })
+
         auth.createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
             .catch(function (error) {
                 // Handle Errors here.
@@ -42,6 +46,7 @@ class Auth extends React.Component {
     }
 
     onLogInByEmailClickHandler = () => {
+        this.setState({ isLoadingUserList: true })
 
         auth.signInWithEmailAndPassword(this.state.logInEmail, this.state.logInPassword)
             .catch(function (error) {
@@ -60,12 +65,13 @@ class Auth extends React.Component {
     }
 
     onResetPasswordClickHandler = () => {
-        
-        auth.sendPasswordResetEmail(this.state.emailForResetPassword).then( () => {
-          alert('Check your email to reset a password')
-          this.setState({emailForResetPassword: ''})
-        }).catch(function(error) {
-          console.log('Error')
+        this.setState({ isLoadingUserList: true })
+
+        auth.sendPasswordResetEmail(this.state.emailForResetPassword).then(() => {
+            alert('Check your email to reset a password')
+            this.setState({ emailForResetPassword: '' })
+        }).catch(function (error) {
+            console.log('Error')
         });
 
     }
@@ -93,28 +99,31 @@ class Auth extends React.Component {
                     this.state.isLoggedIn ?
                         this.props.children
                         :
-                        <LogInForms
-                            onLogInByGoogleClickHandler={this.onLogInByGoogleClickHandler}
+                        this.state.isLoadingUserList ?
+                            <LoadingAuth />
+                            :
+                            <LogInForms
+                                onLogInByGoogleClickHandler={this.onLogInByGoogleClickHandler}
 
-                            onSignUpByEmailClickHandler={this.onSignUpByEmailClickHandler}
-                            onSignUpEmailChangedHandler={this.onSignUpEmailChangedHandler}
-                            onSignUpPasswordChangedHandler={this.onSignUpPasswordChangedHandler}
+                                onSignUpByEmailClickHandler={this.onSignUpByEmailClickHandler}
+                                onSignUpEmailChangedHandler={this.onSignUpEmailChangedHandler}
+                                onSignUpPasswordChangedHandler={this.onSignUpPasswordChangedHandler}
 
-                            signUpEmail={this.state.signUpEmail}
-                            signUpPassword={this.state.signUpPassword}
+                                signUpEmail={this.state.signUpEmail}
+                                signUpPassword={this.state.signUpPassword}
 
-                            onLogInByEmailClickHandler={this.onLogInByEmailClickHandler}
-                            onlogInEmailChangedHandler={this.onlogInEmailChangedHandler}
-                            onlogInPasswordChangedHandler={this.onlogInPasswordChangedHandler}
+                                onLogInByEmailClickHandler={this.onLogInByEmailClickHandler}
+                                onlogInEmailChangedHandler={this.onlogInEmailChangedHandler}
+                                onlogInPasswordChangedHandler={this.onlogInPasswordChangedHandler}
 
-                            logInEmail={this.state.logInEmail}
-                            logInPassword={this.state.logInPassword}
+                                logInEmail={this.state.logInEmail}
+                                logInPassword={this.state.logInPassword}
 
-                            onResetPasswordClickHandler={this.onResetPasswordClickHandler}
-                            onEmailForResetPasswordChangedHandler={this.onEmailForResetPasswordChangedHandler}
+                                onResetPasswordClickHandler={this.onResetPasswordClickHandler}
+                                onEmailForResetPasswordChangedHandler={this.onEmailForResetPasswordChangedHandler}
 
-                            emailForResetPassword={this.state.emailForResetPassword}
-                        />
+                                emailForResetPassword={this.state.emailForResetPassword}
+                            />
                 }
             </div>
         )
