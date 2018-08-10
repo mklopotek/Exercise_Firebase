@@ -4,11 +4,7 @@ import { auth } from '../firebaseConfig'
 import { googleProvider } from '../firebaseConfig'
 import LoadingAuth from './LoadingAuth';
 
-
-
-class Auth extends React.Component {
-
-    state = {
+const initState = {
         isLoggedIn: false,
         logInEmail: '',
         logInPassword: '',
@@ -17,6 +13,12 @@ class Auth extends React.Component {
         emailForResetPassword: '',
         repeatedPassword: '',
         isLoadingUserList: false
+    }
+
+class Auth extends React.Component {
+
+    state = {
+        ...initState
     }
 
     onSignUpEmailChangedHandler = (event) => {
