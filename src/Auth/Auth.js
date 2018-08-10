@@ -15,6 +15,7 @@ class Auth extends React.Component {
         signUpEmail: '',
         signUpPassword: '',
         emailForResetPassword: '',
+        repeatedPassword: '',
         isLoadingUserList: false
     }
 
@@ -76,6 +77,10 @@ class Auth extends React.Component {
 
     }
 
+    onRepeatedPasswordChangedHandler = (event) => {
+        this.setState({ repeatedPassword: event.target.value })
+    }
+
     onLogInByGoogleClickHandler = () => {
         auth.signInWithPopup(googleProvider)
             .catch((error) => alert('Błąd logowania'))
@@ -85,7 +90,8 @@ class Auth extends React.Component {
         auth.onAuthStateChanged(user => {
 
             if (user) {
-                this.setState({ isLoggedIn: true })
+                this.setState({ isLoggedIn: true, isLoadingUserList: false })
+                
             } else {
                 this.setState({ isLoggedIn: false })
             }
@@ -97,7 +103,14 @@ class Auth extends React.Component {
             <div>
                 {
                     this.state.isLoggedIn ?
-                        this.props.children
+                        <div>
+                            <button
+                                onClick={() => auth.signOut()}
+                            >
+                            Log out!
+                            </button>
+                            {this.props.children}
+                        </div>
                         :
                         this.state.isLoadingUserList ?
                             <LoadingAuth />
@@ -123,6 +136,9 @@ class Auth extends React.Component {
                                 onEmailForResetPasswordChangedHandler={this.onEmailForResetPasswordChangedHandler}
 
                                 emailForResetPassword={this.state.emailForResetPassword}
+
+                                repeatedPassword={this.state.repeatedPassword}
+                                onRepeatedPasswordChangedHandler={this.onRepeatedPasswordChangedHandler}
                             />
                 }
             </div>

@@ -4,7 +4,7 @@ const ResetPassword = (props) => (
 
     <div>
         Reset my password:
-<input
+        <input
             placeholder={'Email'}
             type={'email'}
             value={props.emailForResetPassword}
@@ -14,7 +14,7 @@ const ResetPassword = (props) => (
             onClick={props.onResetPasswordClickHandler}
         >
             Reset my password
-</button>
+        </button>
     </div>
 
 )

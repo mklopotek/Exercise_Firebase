@@ -9,7 +9,6 @@ const SignUpByEmailAndPassword = (props) => (
                 type="email"
                 onChange={props.onSignUpEmailChangedHandler}
                 value={props.signUpEmail}
-
             />
         </div>
         <div>
@@ -20,9 +19,19 @@ const SignUpByEmailAndPassword = (props) => (
                 value={props.signUpPassword}
             />
         </div>
+        <div>
+            <input
+                placeholder='Reapt password'
+                type="password"
+                onChange={props.onRepeatedPasswordChangedHandler}
+                value={props.repeatedPassword}
+            />
+        </div>
         <button
             onClick={props.onSignUpByEmailClickHandler}
-        >Sign up!</button>
+        >
+            Sign up!
+        </button>
     </div>
 
 )

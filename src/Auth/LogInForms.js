@@ -41,6 +41,9 @@ const LogInForms = (props) => (
                 onResetPasswordClickHandler={props.onResetPasswordClickHandler}
                 emailForResetPassword={props.emailForResetPassword}
                 onEmailForResetPasswordChangedHandler={props.onEmailForResetPasswordChangedHandler}
+
+                repeatedPassword={props.repeatedPassword}
+                onRepeatedPasswordChangedHandler={props.onRepeatedPasswordChangedHandler}
             />
         </div>
     </div>
