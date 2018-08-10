@@ -30,14 +30,14 @@ class Auth extends React.Component {
     }
 
     onSignUpByEmailClickHandler = () => {
-        this.setState({ ...initState, isLoadingUserList: true })
+        this.setState({ isLoadingUserList: true })
 
         auth.createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
             .catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-            });
+            }).then(() => this.setState({ ...initState }))
     }
 
     onlogInEmailChangedHandler = (event) => {
@@ -49,7 +49,7 @@ class Auth extends React.Component {
     }
 
     onLogInByEmailClickHandler = () => {
-        this.setState({ ...initState, isLoadingUserList: true })
+        this.setState({ isLoadingUserList: true })
 
         auth.signInWithEmailAndPassword(this.state.logInEmail, this.state.logInPassword)
             .catch(function (error) {
@@ -60,7 +60,7 @@ class Auth extends React.Component {
 
                 alert(errorMessage)
 
-            });
+            }).then(() => this.setState({ ...initState }))
     }
 
     onEmailForResetPasswordChangedHandler = (event) => {
@@ -68,15 +68,14 @@ class Auth extends React.Component {
     }
 
     onResetPasswordClickHandler = () => {
-        this.setState({ ...initState, isLoadingUserList: true })
+        this.setState({isLoadingUserList: true })
 
         auth.sendPasswordResetEmail(this.state.emailForResetPassword).then(() => {
             alert('Check your email to reset a password')
             this.setState({ emailForResetPassword: '' })
         }).catch(function (error) {
             console.log('Error')
-        });
-
+        }).then(() => this.setState({ ...initState }))
     }
 
     onRepeatedPasswordChangedHandler = (event) => {

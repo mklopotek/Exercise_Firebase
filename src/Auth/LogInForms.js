@@ -15,6 +15,9 @@ const LogInForms = (props) => (
 
                 signUpEmail={props.signUpEmail}
                 signUpPassword={props.signUpPassword}
+
+                repeatedPassword={props.repeatedPassword}
+                onRepeatedPasswordChangedHandler={props.onRepeatedPasswordChangedHandler}
             />
         </div>
 
@@ -25,7 +28,6 @@ const LogInForms = (props) => (
         </div>
         <div>
             <LogInByEmailAndPassword
-
                 onLogInByEmailClickHandler={props.onLogInByEmailClickHandler}
 
                 onlogInEmailChangedHandler={props.onlogInEmailChangedHandler}
@@ -33,7 +35,6 @@ const LogInForms = (props) => (
 
                 logInEmail={props.logInEmail}
                 logInPassword={props.logInPassword}
-
             />
         </div>
         <div>
@@ -41,9 +42,6 @@ const LogInForms = (props) => (
                 onResetPasswordClickHandler={props.onResetPasswordClickHandler}
                 emailForResetPassword={props.emailForResetPassword}
                 onEmailForResetPasswordChangedHandler={props.onEmailForResetPasswordChangedHandler}
-
-                repeatedPassword={props.repeatedPassword}
-                onRepeatedPasswordChangedHandler={props.onRepeatedPasswordChangedHandler}
             />
         </div>
     </div>
