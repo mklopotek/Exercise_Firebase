@@ -4,11 +4,12 @@ import React from 'react'
 const LogInForms = (props) => (
 
     <div>
+        <h2>Login!</h2>
         <div>
             <input
                 placeholder="Email"
                 type="email"
-                onChange={props.onEmailChangedHandler}
+                onChange={props.onlogInEmailChangedHandler}
                 value={props.logInEmail}
             />
         </div>
@@ -16,7 +17,7 @@ const LogInForms = (props) => (
             <input
                 placeholder="Password"
                 type="password"
-                onChange={props.onPasswordChangedHandler}
+                onChange={props.onlogInPasswordChangedHandler}
                 value={props.logInPassword}
             />
         </div>

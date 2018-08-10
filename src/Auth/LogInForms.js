@@ -1,12 +1,25 @@
 import React from 'react'
 import LogInByGoogle from './LogInByGoogle'
 import LogInByEmailAndPassword from './LogInByEmailAndPassword'
+import SignUpByEmailAndPassword from './SignUpByEmailAndPassword';
+import ResetPassword from './ResetPassword';
 
 const LogInForms = (props) => (
     <div>
         <div>
-            Login by Google
-        <LogInByGoogle
+            <SignUpByEmailAndPassword
+                onSignUpByEmailClickHandler={props.onSignUpByEmailClickHandler}
+
+                onSignUpEmailChangedHandler={props.onSignUpEmailChangedHandler}
+                onSignUpPasswordChangedHandler={props.onSignUpPasswordChangedHandler}
+
+                signUpEmail={props.signUpEmail}
+                signUpPassword={props.signUpPassword}
+            />
+        </div>
+
+        <div>
+            <LogInByGoogle
                 onLogInByGoogleClickHandler={props.onLogInByGoogleClickHandler}
             />
         </div>
@@ -14,13 +27,20 @@ const LogInForms = (props) => (
             <LogInByEmailAndPassword
 
                 onLogInByEmailClickHandler={props.onLogInByEmailClickHandler}
-                
-                onEmailChangedHandler={props.onEmailChangedHandler}
-                onPasswordChangedHandler={props.onPasswordChangedHandler}
+
+                onlogInEmailChangedHandler={props.onlogInEmailChangedHandler}
+                onlogInPasswordChangedHandler={props.onlogInPasswordChangedHandler}
 
                 logInEmail={props.logInEmail}
                 logInPassword={props.logInPassword}
 
+            />
+        </div>
+        <div>
+            <ResetPassword
+                onResetPasswordClickHandler={props.onResetPasswordClickHandler}
+                emailForResetPassword={props.emailForResetPassword}
+                onEmailForResetPasswordChangedHandler={props.onEmailForResetPasswordChangedHandler}
             />
         </div>
     </div>
