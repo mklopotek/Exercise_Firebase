@@ -5,15 +5,15 @@ import { googleProvider } from '../firebaseConfig'
 import LoadingAuth from './LoadingAuth';
 
 const initState = {
-        isLoggedIn: false,
-        logInEmail: '',
-        logInPassword: '',
-        signUpEmail: '',
-        signUpPassword: '',
-        emailForResetPassword: '',
-        repeatedPassword: '',
-        isLoadingUserList: false
-    }
+    isLoggedIn: false,
+    logInEmail: '',
+    logInPassword: '',
+    signUpEmail: '',
+    signUpPassword: '',
+    emailForResetPassword: '',
+    repeatedPassword: '',
+    isLoadingUserList: false
+}
 
 class Auth extends React.Component {
 
@@ -30,14 +30,22 @@ class Auth extends React.Component {
     }
 
     onSignUpByEmailClickHandler = () => {
-        this.setState({ isLoadingUserList: true })
-
-        auth.createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
-            .catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-            }).then(() => this.setState({ ...initState }))
+        if (this.state.signUpPassword === this.state.repeatedPassword) {
+            this.setState({ isLoadingUserList: true })
+            auth.createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
+                .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                }).then(() => this.setState({ ...initState }))
+        } else {
+            alert('Both passwords must be the same, try again.')
+            this.setState({
+                signUpEmail: '',
+                signUpPassword: '',
+                repeatedPassword: ''
+            })
+        }
     }
 
     onlogInEmailChangedHandler = (event) => {
@@ -68,7 +76,7 @@ class Auth extends React.Component {
     }
 
     onResetPasswordClickHandler = () => {
-        this.setState({isLoadingUserList: true })
+        this.setState({ isLoadingUserList: true })
 
         auth.sendPasswordResetEmail(this.state.emailForResetPassword).then(() => {
             alert('Check your email to reset a password')
@@ -92,7 +100,7 @@ class Auth extends React.Component {
 
             if (user) {
                 this.setState({ isLoggedIn: true, isLoadingUserList: false })
-                
+
             } else {
                 this.setState({ isLoggedIn: false })
             }
@@ -108,7 +116,7 @@ class Auth extends React.Component {
                             <button
                                 onClick={() => auth.signOut()}
                             >
-                            Log out!
+                                Log out!
                             </button>
                             {this.props.children}
                         </div>

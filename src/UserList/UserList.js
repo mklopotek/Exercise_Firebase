@@ -95,6 +95,8 @@ class UserList extends React.Component {
                         :
                         this.state.users ?
                             <div>
+                                <div>Here there is some user list. You can add new user, edit his name or delete. <br/> The user list is connected with firebase database and the data is updated constantly. <br/>Feel free to check if it works. :) </div>
+
                                 <Forms
                                     newUserName={this.state.newUserName}
                                     newUserChangeHandler={this.newUserChangeHandler}

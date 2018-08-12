@@ -13,7 +13,7 @@ const SignUpByEmailAndPassword = (props) => (
         </div>
         <div>
             <input
-                placeholder='Your password'
+                placeholder='Your password (min. 6)'
                 type="password"
                 onChange={props.onSignUpPasswordChangedHandler}
                 value={props.signUpPassword}
@@ -21,7 +21,7 @@ const SignUpByEmailAndPassword = (props) => (
         </div>
         <div>
             <input
-                placeholder='Reapt password'
+                placeholder='Repeat password'
                 type="password"
                 onChange={props.onRepeatedPasswordChangedHandler}
                 value={props.repeatedPassword}
